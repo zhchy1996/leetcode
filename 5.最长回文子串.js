@@ -62,64 +62,27 @@
  * @param {string} s
  * @return {string}
  */
-var longestPalindrome = function(s) {
-    const strArr = s.split('');
-    const len = strArr.length;
-    const searchedArr = [];
-    let res = [];
-    let tmp = [];
-    for(let i = 0; i < len;i++) {
-        const target = strArr[i];
-        if (target === searchedArr[searchedArr.length - 1]) {
-            res.push(target);
-            res.unshift(target);
-            for (let j = i + 1; j < len; j++) {
-                if (strArr[j] === searchedArr[searchedArr.length - j + i - 1]) {
-                    tmp.push(strArr[j]);
-                    tmp.unshift(strArr[j]);
-                } else {
-                    if (tmp.length > res.length) {
-                        res = tmp;
-                        tmp = [];
-                    } else {
-                        tmp = [];
-                    }
-                    break;
-                }
-            }
-        } else if (target === searchedArr[searchedArr.length - 2]) {
-            tmp.push(searchedArr[searchedArr.length - 2]);
-            tmp.push(searchedArr[searchedArr.length - 1]);
-            tmp.push(target);
-            if (i + 1 >= len) {
-                if (tmp.length > res.length) {
-                    res = tmp;
-                    tmp = [];
-                }
-                return res.join('');
-            }
-            for (let j = i + 1; j < len; j++) {
-                if (strArr[j] === searchedArr[searchedArr.length - j + i - 1]) {
-                    tmp.push(strArr[j]);
-                    tmp.unshift(strArr[j]);
-                } else {
-                    if (tmp.length > res.length) {
-                        res = tmp;
-                        tmp = [];
-                    } else {
-                        tmp = [];
-                    }
-                    break;
-                }
-            }
+// n^2
+// var longestPalindrome = function(s) {
+//     const strArr = s.split('');
+//     const {length} = strArr;
+//     let res = [];
+//     let temp = [];
+//     for (let i = 0; i < length; i ++) {
+//         temp = [];
+//         for (let j = i; j < length; j++) {
+//             temp.push(strArr[j]);
+//             if (temp.join('') ===temp.slice().reverse().join('')) {
+//                 if (res.length < temp.length)  res = temp.slice();
+//             };
+//         }
+//     }
+//     return res.join('');
+// };
 
-        }
-        searchedArr.push(target);
-    }
-    if (res.length === 0) {
-        return strArr[0];
-    }
-    return res.join('');
+// 动态规划写法
+var longestPalindrome = function(s) {
+    
 };
 
 // @lc code=end
