@@ -74,43 +74,60 @@
  * @param {ListNode[]} lists
  * @return {ListNode}
  */
+// var mergeKLists = function(lists) {
+//     const pArr = [];
+//     let leftNum = lists.length;
+//     if (leftNum === 0) return null;
+//     const res = new ListNode(-1);
+//     let resP = res;
+//     // init point array
+//     for (let i = 0; i < lists.length; i++) {
+//         pArr[i] = lists[i];
+//         if (!pArr[i]) leftNum--;
+//     }
+
+//     while (leftNum > 1) {
+//         let min = Number.POSITIVE_INFINITY;
+//         let minIdx = -1;
+
+//         for (let j = 0; j < lists.length; j++) {
+//             if (pArr[j] && pArr[j].val < min) {
+//                 min = pArr[j].val; 
+//                 minIdx = j;
+//             }
+//         }
+//         if (minIdx > -1) {
+//             pArr[minIdx] = pArr[minIdx].next;
+//             if (pArr[minIdx] === null) leftNum--;
+
+//             resP.next = new ListNode(min);
+//             resP = resP.next;
+//         } else {
+//             leftNum = 0;
+//             break;
+//         }
+//     }
+//     if (leftNum === 1) {
+//         resP.next = pArr.find(v => v !== null);
+//     }
+//     return res.next || null;
+// };
+
+// best
+/**
+ * 创建一个辅助的队列，此队列按照从小到大的顺序排列，每次插入需要的时间复杂度为O(logn),然后每次将第一位放入新链表中
+ */
 var mergeKLists = function(lists) {
-    const pArr = [];
-    let leftNum = lists.length;
-    if (leftNum === 0) return null;
+    const queue = [];
+    const {length} = lists;
     const res = new ListNode(-1);
-    let resP = res;
-    // init point array
-    for (let i = 0; i < lists.length; i++) {
-        pArr[i] = lists[i];
-        if (!pArr[i]) leftNum--;
+    if (length === 0) return null;
+
+    // init queue
+    for (let i = 0; i < length; i++) {
+        if (list[i].val) queue[i] = lists[i].val;
     }
 
-    while (leftNum > 1) {
-        let min = Number.POSITIVE_INFINITY;
-        let minIdx = -1;
-
-        for (let j = 0; j < lists.length; j++) {
-            if (pArr[j] && pArr[j].val < min) {
-                min = pArr[j].val; 
-                minIdx = j;
-            }
-        }
-        if (minIdx > -1) {
-            pArr[minIdx] = pArr[minIdx].next;
-            if (pArr[minIdx] === null) leftNum--;
-
-            resP.next = new ListNode(min);
-            resP = resP.next;
-        } else {
-            leftNum = 0;
-            break;
-        }
-    }
-    if (leftNum === 1) {
-        resP.next = pArr.find(v => v !== null);
-    }
-    return res.next || null;
 };
 // @lc code=end
 
