@@ -115,18 +115,48 @@
 
 // best
 /**
- * 创建一个辅助的队列，此队列按照从小到大的顺序排列，每次插入需要的时间复杂度为O(logn),然后每次将第一位放入新链表中
+ * 每次将链表两两合并，由于每次合并的时间复杂度为n，而总共需要合并logn次，所以复杂度为nlogn,优于n^2
  */
 var mergeKLists = function(lists) {
-    const queue = [];
-    const {length} = lists;
-    const res = new ListNode(-1);
-    if (length === 0) return null;
+    if (lists.length === 0) return null;
+    if (lists.length === 1) return lists[0] || null;
+    let res = [];
+    let temp = lists;
 
-    // init queue
-    for (let i = 0; i < length; i++) {
-        if (list[i].val) queue[i] = lists[i].val;
+    while(temp.length > 1) {
+        res = [];
+        for (let i = 0; i < temp.length; i += 2) {
+            res.push(mergeTwo(temp[i], temp[i + 1]))
+        }
+        temp = res;
     }
+    
+    // 用于将两个链表合并
+    function mergeTwo(l1, l2) {
+        const res = new ListNode(-1);
+        let resp = res;
+        while(l1 || l2) {
+            if (!l1) {
+                resp.next = l2 || null;
+                break;
+            } else if (!l2) {
+                resp.next = l1 || null;
+                break;
+            }
+            if (l1.val < l2.val) {
+                resp.next = new ListNode(l1.val);
+                resp = resp.next;
+                l1 = l1.next;
+            } else {
+                resp.next = new ListNode(l2.val);
+                resp = resp.next;
+                l2 = l2.next;
+            }
+        }
+        return res.next;
+    }
+
+    return res[0] || null;
 
 };
 // @lc code=end
