@@ -77,16 +77,33 @@
 // 	return [];
 // };
 
-var twoSum = function(nums, target) {
-    let i = 0,
-        j = 0;
-    const {length} = nums;
-    for(;i < length; i += 1) {
-        const pre = nums[i];
-        for (j = i + 1; j < length; j += 1) {
-            if (pre + nums[j] === target) return [i, j];
-        }
+// var twoSum = function(nums, target) {
+//     let i = 0,
+//         j = 0;
+//     const {length} = nums;
+//     for(;i < length; i += 1) {
+//         const pre = nums[i];
+//         for (j = i + 1; j < length; j += 1) {
+//             if (pre + nums[j] === target) return [i, j];
+//         }
+//     }
+// };
+
+// 更好的方法是hash法
+const twoSum = (nums, target) => {
+    const obj = nums.reduce((acc, v, index) => {
+        acc[v] = index;
+        return acc;
+    }, {})
+    for (let i = 0; i < nums.length; i++) {
+        const j = obj[target - nums[i]]; 
+        if (j !== undefined && i !== j) return [i, j]
     }
+    return [];
 };
 // @lc code=end
 
+
+// @after-stub-for-debug-begin
+module.exports = twoSum;
+// @after-stub-for-debug-end

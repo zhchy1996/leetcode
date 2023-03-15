@@ -184,36 +184,37 @@
 // };
 
 // best solution mine
-var findMedianSortedArrays = function (nums1, nums2) {
-    const len1 = nums1.length,
-        len2 = nums2.length;
-    if (len1 > len2) return findMedianSortedArrays(nums2, nums1);
-    let left = 0,
-        right = len1 ;
+// var findMedianSortedArrays = function (nums1, nums2) {
+//     const len1 = nums1.length,
+//         len2 = nums2.length;
+//     if (len1 > len2) return findMedianSortedArrays(nums2, nums1);
+//     let left = 0,
+//         right = len1 ;
 
-    while (left <= right) {
-        const p1 = Math.floor((left + right) / 2);
-        const p2 = Math.floor((len1 + len2 + 1) / 2) - p1;
-        const leftVal1 = p1 === 0 ? Number.NEGATIVE_INFINITY : nums1[p1 - 1];
-        const rightVal1 = p1 === len1 ? Number.POSITIVE_INFINITY : nums1[p1];
+//     while (left <= right) {
+//         const p1 = Math.floor((left + right) / 2);
+//         const p2 = Math.floor((len1 + len2 + 1) / 2) - p1;
+//         const leftVal1 = p1 === 0 ? Number.NEGATIVE_INFINITY : nums1[p1 - 1];
+//         const rightVal1 = p1 === len1 ? Number.POSITIVE_INFINITY : nums1[p1];
 
-        const leftVal2 = p2 === 0 ? Number.NEGATIVE_INFINITY : nums2[p2 - 1];
-        const rightVal2 = p2 === len2 ? Number.POSITIVE_INFINITY : nums2[p2];
+//         const leftVal2 = p2 === 0 ? Number.NEGATIVE_INFINITY : nums2[p2 - 1];
+//         const rightVal2 = p2 === len2 ? Number.POSITIVE_INFINITY : nums2[p2];
 
-        if (leftVal1 <= rightVal2 && leftVal2 <= rightVal1) {
-            const leftMax = Math.max(leftVal1, leftVal2);
-            if ((len1 + len2) % 2 === 1) {
-                return leftMax;
-            } else {
-                return (leftMax + Math.min(rightVal1, rightVal2)) / 2;
-            }
-        } else if (leftVal1 > rightVal2) {
-            right = p1 - 1;
-        } else {
-            left = p1 + 1;
-        }
-    }
-};
+//         if (leftVal1 <= rightVal2 && leftVal2 <= rightVal1) {
+//             const leftMax = Math.max(leftVal1, leftVal2);
+//             if ((len1 + len2) % 2 === 1) {
+//                 return leftMax;
+//             } else {
+//                 return (leftMax + Math.min(rightVal1, rightVal2)) / 2;
+//             }
+//         } else if (leftVal1 > rightVal2) {
+//             right = p1 - 1;
+//         } else {
+//             left = p1 + 1;
+//         }
+//     }
+// };
+
 
 // @lc code=end
 

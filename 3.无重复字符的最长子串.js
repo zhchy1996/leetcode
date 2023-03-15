@@ -71,29 +71,29 @@
  * @param {string} s
  * @return {number}
  */
-var lengthOfLongestSubstring = function(s) {
-    const obj = {};
-    const len = s.length;
-    let pre = 0;
-    let now = 0;
-    for (let i = 0; i < len; i++) {
-        const str = s[i]
-        if (obj[str] === undefined) {
-            obj[str] = i;
-            now ++;
-        } else {
-            if (obj[str] >= i - now) {
-                pre = Math.max(pre, now);
-                now = i - obj[str];
-                obj[str] = i;
-            } else {
-                obj[str] = i;
-                now++;
-            }
-        }
-    }
-    return Math.max(pre, now);
-};
+// var lengthOfLongestSubstring = function(s) {
+//     const obj = {};
+//     const len = s.length;
+//     let pre = 0;
+//     let now = 0;
+//     for (let i = 0; i < len; i++) {
+//         const str = s[i]
+//         if (obj[str] === undefined) {
+//             obj[str] = i;
+//             now ++;
+//         } else {
+//             if (obj[str] >= i - now) {
+//                 pre = Math.max(pre, now);
+//                 now = i - obj[str];
+//                 obj[str] = i;
+//             } else {
+//                 obj[str] = i;
+//                 now++;
+//             }
+//         }
+//     }
+//     return Math.max(pre, now);
+// };
 
 // second
 // var lengthOfLongestSubstring = function(s) {
@@ -115,19 +115,20 @@ var lengthOfLongestSubstring = function(s) {
 // };
 
 // best solution
-// var lengthOfLongestSubstring = function(s) {
-//     const map = {};
-//     var left = 0;
+// 遍历字符串, 用map记录字符串出现的位置, 一旦出现重复字符
+// 就计算出当前子串长度, 并更新字符位置
+var lengthOfLongestSubstring = function(s) {
+    const map = {};
+    var left = 0;
     
-//     return s.split('').reduce((max, v, i) => {
-//         left = map[v] >= left ? map[v] + 1 : left;
-//         map[v] = i;
-//         return Math.max(max, i - left + 1);
-//     }, 0);
-// }
+    return s.split('').reduce((max, v, i) => {
+        left = map[v] >= left ? map[v] + 1 : left;
+        map[v] = i;
+        return Math.max(max, i - left + 1);
+    }, 0);
+}
 
 // @lc code=end
-
 
 // @after-stub-for-debug-begin
 module.exports = lengthOfLongestSubstring;
