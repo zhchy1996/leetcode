@@ -37,17 +37,26 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-var reverseList = function(head) {
-    let p = head;
-    let prev = null
-    while(p) {
-        const tmp = p.next;
-        p.next = prev;
-        prev = p;
-        p = tmp; 
-    }
+// var reverseList = function(head) {
+//     let p = head;
+//     let prev = null
+//     while(p) {
+//         const tmp = p.next;
+//         p.next = prev;
+//         prev = p;
+//         p = tmp; 
+//     }
 
-    return prev;
-};
+//     return prev;
+// };
+
+const reverseList = head => {
+    if (!head || !head.next) return head;
+    const last = reverseList(head.next);
+    head.next.next = head;
+    // 虽然此处将head的next置为null, 但是在下一次循环时会将其改为正确的节点
+    head.next = null;
+    return last;
+}
 // @lc code=end
 

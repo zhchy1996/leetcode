@@ -83,35 +83,66 @@
  * @param {number} k
  * @return {ListNode}
  */
-var reverseKGroup = function(head, k) {
-    let count = 1;
-    let p = head;
-    let q = head;
+// 迭代解法
+// var reverseKGroup = function(head, k) {
+//     let count = 1;
+//     let p = head;
+//     let q = head;
 
-    while(q) {
-        q = q.next;
-        count++;
-        if (count === 3) {
-            reverseList(p, q);
-            count = 0;
-        }
+//     while(q) {
+//         q = q.next;
+//         count++;
+//         if (count === 3) {
+//             reverseList(p, q);
+//             count = 0;
+//         }
+//     }
+
+
+//     function reverseList(head, tail) {
+//         let prev = head;
+//         let next = head.next;
+//         while(next !== tail) {
+//             prev.next = next.next;
+//             next.next = prev;
+//             prev = prev.next;
+//             next = prev.next;
+//         }
+//         return [tail, head];
+//     }
+
+//     return res;
+// };
+
+
+// 反转从a到b的链表, 注意, 这个方法是左闭右开的
+const reverse = (a, b) => {
+    let pre = null;
+    let cur = a;
+    let after = null;
+    while(cur !== b) {
+        after = cur.next;
+        cur.next = pre;
+        pre = cur;
+        cur = after;
     }
-
-
-    function reverseList(head, tail) {
-        let prev = head;
-        let next = head.next;
-        while(next !== tail) {
-            prev.next = next.next;
-            next.next = prev;
-            prev = prev.next;
-            next = prev.next;
-        }
-        return [tail, head];
+    return pre;
+}
+const reverseKGroup = (head, k) => {
+    let a = head;
+    let b = head;
+    for (let i = 0; i < k; i++) {
+        // 此处是b = b.next前判断, 所以如果剩余数量刚好等于k也是能继续执行的
+        if (b === null) return head;
+    // 此处保证的是左闭右开
+        b = b.next;
     }
-
+    const res = reverse(a, b);
+    // 因为左闭右开所以这里传入b即可
+    a.next = reverseKGroup(b, k);
     return res;
-};
+}
+
 // @lc code=end
 
 
