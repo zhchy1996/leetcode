@@ -145,6 +145,29 @@ var longestPalindrome = function(s) {
     return s.substring(start, end + 1);
 };
 
+
+// 双指针解法
+var longestPalindrome = function(s) {
+    let longest = '';
+    const expend = (l, r) => {
+        while (l >= 0 && r < s.length && s[l] === s[r]) {
+            l--;
+            r++;
+        }
+
+        return s.substring(l +1, r);
+    }
+
+    for (let i = 0; i < s.length; i++) {
+        const str1 = expend(i, i);
+        const str2 = expend(i, i + 1);
+        if (str1.length > longest.length) longest = str1;
+        if (str2.length > longest.length) longest = str2;
+    }
+
+    return longest;
+}
+
 // @lc code=end
 
 
