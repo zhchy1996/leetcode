@@ -76,6 +76,36 @@ var permute = function(nums) {
     trackBack(0, []);
     return res;
 };
+
+var permute = function(nums) {
+    const res = [];
+    const used = {};
+
+    const trackBack = (index, arr) => {
+        // 退出条件
+        if (index === nums.length) {
+            res.push([...arr]);
+            return;
+        }
+
+        for(let num of nums) {
+            if (!used[num]) {
+                // 做出选择
+                arr.push(num);
+                used[num] = true; 
+                // 递归, 深入进行选择
+                trackBack(index + 1, arr);
+                // 撤销选择
+                arr.pop();
+                used[num] = false;
+            }
+        }
+
+    }
+    trackBack(0, []);
+
+    return res;
+}
 // @lc code=end
 
 
