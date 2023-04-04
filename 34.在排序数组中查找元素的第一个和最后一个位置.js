@@ -87,7 +87,7 @@ var searchRange = function(nums, target) {
         } else {
             // 注意, 这里停下的索引其实在目标的右侧
             // return nums[start - 1] === target ? start - 1 : -1; 
-            // 如果用end的话就可以不用-1, 因为在while最后一次执行时end被-1了
+            // 如果用end的话就可以不用-1, 因为在while最后一次执行时end或者没+1或者被-1, 与我们期望的left是一样的
             return nums[end] === target ? end : -1; 
         }
     }
@@ -96,6 +96,35 @@ var searchRange = function(nums, target) {
     const rightIndex = binerySearch(nums, target);
     return [leftIndex, rightIndex];
 };
+
+var searchRange = function(nums, target) {
+    const binerySearch = isLeft => {
+        let left = 0;
+        let right = nums.length - 1;
+        while (left <= right) {
+            const mid = left + Math.floor((right - left) / 2);
+            if (isLeft) {
+                if (nums[mid] < target) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            } else {
+                if (nums[mid] <= target) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+        }
+        const res = isLeft ? left : right;
+        return nums[res] === target ? res : -1;
+    }
+
+    const left = binerySearch(true);
+    const right = binerySearch();
+    return [left, right];
+}
 // @lc code=end
 
 
