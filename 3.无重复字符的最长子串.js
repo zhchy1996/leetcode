@@ -128,6 +128,34 @@ var lengthOfLongestSubstring = function(s) {
     }, 0);
 }
 
+// 滑动窗口解法
+var lengthOfLongestSubstring = function(s) {
+    let left = 0;
+    let right = 0;
+    let res = 0;
+    const window = new Map();
+
+    while(right < s.length) {
+        const c = s[right];
+        right++;
+
+        if (window.has(c)) {
+            window.set(c, window.get(c) + 1);
+        } else {
+            window.set(c, 1);
+        }
+
+        while(window.get(c) > 1) {
+            const d = s[left];
+            left++;
+            window.set(d, window.get(d) - 1);
+        }
+        res = Math.max(res, right - left);
+    }
+
+    return res;
+}
+
 // @lc code=end
 
 // @after-stub-for-debug-begin
